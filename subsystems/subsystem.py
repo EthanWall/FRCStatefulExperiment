@@ -15,26 +15,28 @@ class SubsystemBase(ABC):
     def stop(self):
         """
         Stop all outputs.
-
         """
 
     @abstractmethod
     def read_inputs(self):
         """
         Read sensor values periodically.
-
         """
 
     @abstractmethod
     def write_outputs(self):
         """
         Write to the HAL/CAN bus periodically.
-
         """
 
     @abstractmethod
     def update_on_dashboard(self):
         """
         Write to the Smart Dashboard.
+        """
 
+    @abstractmethod
+    def zero_sensors(self):
+        """
+        Reset sensors. We should maintain our own offsets, as CAN devices don't reset immediately.
         """
