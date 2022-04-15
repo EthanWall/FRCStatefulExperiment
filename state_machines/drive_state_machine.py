@@ -1,6 +1,6 @@
 from enum import Enum
 
-from state_machines.state_machine import StateMachine
+from state_machines import StateMachine
 
 
 class DrivetrainState(Enum):

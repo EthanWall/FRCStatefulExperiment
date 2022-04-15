@@ -1,5 +1,5 @@
 import globe
-from loops.loop import Loop
+from loops import Loop
 
 
 def run_drive():

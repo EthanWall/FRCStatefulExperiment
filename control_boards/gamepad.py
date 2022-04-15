@@ -1,6 +1,7 @@
 import wpilib
 
-from control_boards.board import ControlBoardBase
+from util import deadband
+from control_boards import ControlBoardBase
 
 
 class XboxControlBoard(ControlBoardBase):
@@ -10,8 +11,12 @@ class XboxControlBoard(ControlBoardBase):
 
     @property
     def forward(self) -> float:
-        return -self.drive_stick.getLeftY()
+        val = -self.drive_stick.getLeftY()
+        val = deadband(val, 0.05)
+        return val
 
     @property
     def rotation(self) -> float:
-        return self.drive_stick.getRightX()
+        val = self.drive_stick.getRightX()
+        val = deadband(val, 0.05)
+        return val

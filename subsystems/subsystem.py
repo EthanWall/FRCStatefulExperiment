@@ -1,7 +1,25 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod, ABCMeta
+
+import globe
+from loops import Loop
 
 
-class SubsystemBase(ABC):
+class SubsystemBase(Loop, metaclass=ABCMeta):
+
+    def __init__(self):
+        globe.scheduler.register(self)
+
+    def on_start(self, timestamp):
+        pass
+
+    def on_update(self, timestamp):
+        self.read_inputs()
+        self.update(timestamp)
+        self.write_outputs()
+        self.update_on_dashboard()
+
+    def on_end(self, timestamp):
+        self.stop()
 
     @abstractmethod
     def update(self, timestamp):

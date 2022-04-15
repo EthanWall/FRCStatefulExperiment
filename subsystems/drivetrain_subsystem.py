@@ -4,8 +4,8 @@ import wpilib.drive
 from wpimath.geometry import Rotation2d
 
 from constants import PortConstants, DrivetrainConstants
-from state_machines.drive_state_machine import DrivetrainStateMachine, DrivetrainState
-from subsystems.subsystem import SubsystemBase
+from state_machines import DrivetrainStateMachine, DrivetrainState
+from subsystems import SubsystemBase
 
 
 class PeriodicIO:
@@ -22,6 +22,8 @@ class PeriodicIO:
 class Drivetrain(SubsystemBase):
 
     def __init__(self):
+        SubsystemBase.__init__(self)
+
         self._io = PeriodicIO()
 
         self._state_machine = DrivetrainStateMachine()
@@ -111,6 +113,9 @@ class Drivetrain(SubsystemBase):
 
         # Set our state to open loop driving
         self._state_machine.want_state(DrivetrainState.OPEN_LOOP)
+
+        if self._state_machine.state != DrivetrainState.OPEN_LOOP:
+            return
 
         # Calculate the wheel speeds for arcade drive
         speeds = self._drive.arcadeDriveIK(forward, rotation, False)
